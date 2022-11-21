@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="UrDelivery:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>UrDelivery</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="UrDelivery-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="UrDelivery:war exploded" />
+    </root>
+  </artifact>
+</component>
