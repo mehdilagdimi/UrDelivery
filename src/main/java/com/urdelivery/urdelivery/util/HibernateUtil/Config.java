@@ -17,7 +17,6 @@ public final class Config {
 
     static {
 //        try{
-        Dotenv dotenv;
         dotenv = Dotenv.configure().ignoreIfMissing().load();
         Config.setDIALECT(dotenv.get("DIALECT"));
         Config.setDRIVER(dotenv.get("DRIVER"));
