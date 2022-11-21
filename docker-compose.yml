@@ -1,0 +1,32 @@
+version: "1"
+services:
+  mysql:
+    container_name: mysql_container
+    image: mysql
+    environment:
+      MYSQL_USER: mehdilagdimi
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE : urdelivery
+    volumes:
+      - urdelivery:/usr/src/app/data
+    ports:
+      - "3306:3306"
+    networks:
+      - app
+    restart: unless-stopped
+
+  marjane:
+    container_name: urdelivery_app_container
+    build: .
+    networks:
+      - app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+
+networks:
+  app:
+    driver: bridge
+volumes:
+  urdelivery:
