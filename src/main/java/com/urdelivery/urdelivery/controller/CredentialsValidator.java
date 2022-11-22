@@ -4,10 +4,12 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import jakarta.validation.constraints.NotNull;
 
+import java.io.Serializable;
+
+
 @Named
 @RequestScoped
-public class CredentialsValidator {
-
+public class CredentialsValidator implements Serializable{
         private String email;
         private String password;
 

@@ -10,16 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83648cfb-0756-4a17-b625-a40fe3c012b6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/urdelivery/urdelivery/base/qualifier/LoggedIn.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/urdelivery/urdelivery/controller/CredentialsValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/urdelivery/urdelivery/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/loginPage.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/UrDelivery_war.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/UrDelivery_war.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/UrDelivery_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/UrDelivery_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/urdelivery/urdelivery/util/HibernateUtil/HibernateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/urdelivery/urdelivery/util/HibernateUtil/HibernateUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/urdelivery/urdelivery/controller/CredentialsValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/urdelivery/urdelivery/controller/CredentialsValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/urdelivery/urdelivery/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/urdelivery/urdelivery/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/beans.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/beans.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,20 +50,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Youcode/Documents/GitHub/JAVA Angular/UrDelivery",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Youcode/Documents/GitHub/JAVA Angular/UrDelivery&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Youcode\Documents\GitHub\JAVA Angular\UrDelivery" />
@@ -182,7 +178,9 @@
       <workItem from="1669053322083" duration="3245000" />
       <workItem from="1669121535171" duration="287000" />
       <workItem from="1669121842527" duration="482000" />
-      <workItem from="1669122345502" duration="3024000" />
+      <workItem from="1669122345502" duration="4248000" />
+      <workItem from="1669130445246" duration="1134000" />
+      <workItem from="1669131596400" duration="310000" />
     </task>
     <servers />
   </component>

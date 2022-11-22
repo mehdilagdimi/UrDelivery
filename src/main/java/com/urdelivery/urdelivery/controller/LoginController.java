@@ -1,13 +1,15 @@
 package com.urdelivery.urdelivery.controller;
 
 import com.urdelivery.urdelivery.base.qualifier.LoggedIn;
-import com.urdelivery.urdelivery.entity.Admin;
 import com.urdelivery.urdelivery.entity.Driver;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Produces;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 @SessionScoped
@@ -35,6 +37,18 @@ public class LoginController implements Serializable {
 //        else {
 //            // perhaps add code here to report a failed login
 //        }
+        System.out.println("user name " + credentialsValidator.getEmail());
+        System.out.println("user name " + credentialsValidator.getPassword());
+        ExternalContext ec = FacesContext.getCurrentInstance()
+                .getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/index.xhtml");
+//                    + "/faces/jsf/index.xhtml");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void logout() {
