@@ -36,3 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+*.xml
+.idea
+/src/main/webapp/WEB-INF
