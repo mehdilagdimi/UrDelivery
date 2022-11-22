@@ -15,13 +15,15 @@ services:
       - app
     restart: unless-stopped
 
-  marjane:
+  urdelivery:
     container_name: urdelivery_app_container
     build: .
+    volumes:
+      - ./target:/opt/jboss/wildfly/standalone/deployments/
     networks:
       - app
     ports:
-      - "8080:8080"
+      - "8088:8080"
     depends_on:
       - mysql
 
