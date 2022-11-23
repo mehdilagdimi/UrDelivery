@@ -41,6 +41,12 @@ build/
 
 .env
 
-*.xml
 .idea
 /src/main/webapp/WEB-INF
+
+Dockerfile
+docker-compose.yml
+.mvn
+mvnw
+mvnw.cmd
+
