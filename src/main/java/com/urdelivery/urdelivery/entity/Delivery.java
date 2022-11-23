@@ -2,10 +2,11 @@ package com.urdelivery.urdelivery.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-public class Delivery {
+public class Delivery implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 

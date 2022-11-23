@@ -13,7 +13,6 @@ public final class Config {
     private  static String USER;
     private  static String PASSWORD;
 
-    private static String DBNAME;
 
     static {
 //        try{
