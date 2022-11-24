@@ -25,6 +25,7 @@ public class LoginController implements Serializable {
         System.out.println(" user being logged in ...");
 
         driver = new Driver();
+        
 //        List<Driver> results = userDatabase.createQuery(
 //                        "select u from User u where u.username = :username and u.password = :password")
 //                .setParameter("username", credentials.getUsername())
@@ -66,3 +67,4 @@ public class LoginController implements Serializable {
     }
 
 }
+
