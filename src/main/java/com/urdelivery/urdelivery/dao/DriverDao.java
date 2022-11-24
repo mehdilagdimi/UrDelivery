@@ -19,12 +19,15 @@ public class DriverDao extends AbstractHibernateDao<Driver> implements IUser<Dri
                     .setParameter("email", email)
                     .getSingleResult();
             session.getTransaction().commit();
-            session.close();
+
             return driver;
 
         }catch (NoResultException ex){
             System.out.println(ex.getMessage());
+
             return null;
+        } finally {
+            session.close();
         }
     }
 

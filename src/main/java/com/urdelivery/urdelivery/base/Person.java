@@ -10,13 +10,10 @@ public class Person {
     @Column(name = "id")
     long id;
 
-    @Column(name = "full_name")
     private String fullname;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
     private String password;
 
     public Person(){
