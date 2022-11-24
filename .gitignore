@@ -50,3 +50,5 @@ docker-compose.yml
 mvnw
 mvnw.cmd
 
+src/main/java/com/urdelivery/urdelivery/util/HibernateUtil/Config.java
+
