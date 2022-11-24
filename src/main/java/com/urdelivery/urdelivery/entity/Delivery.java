@@ -14,10 +14,13 @@ public class Delivery {
     private Timestamp dateOfDeparture;
     private Timestamp dateOfArrival;
 
+    private boolean isAvailable = true;
+
     private double weight;
     private double distanceInKm;
     private double price;
 
+    private Timestamp accepted_at;
     private Timestamp created_at;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
