@@ -37,9 +37,8 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
     public T findOne(final long id) {
         Session session = getCurrentSession();
         session.beginTransaction();
-        T record = (T) session.get(clazz, id);
+        T record = session.get(clazz, id);
         session.getTransaction().commit();
-        session.close();
         return record;
     }
 
@@ -52,9 +51,9 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
         TypedQuery<Long> query = session.createQuery(criteria);
         long count = query.getSingleResult();
         session.getTransaction().commit();
-        session.close();
         return count;
     }
+
 
     public List<T> findInRange(Integer offset, Integer max){
         Session session = getCurrentSession();
@@ -74,7 +73,6 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 
         List<T> resultList = typedQuery.getResultList();
         session.getTransaction().commit();
-        session.close();
         return resultList;
 
     }
@@ -102,11 +100,16 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
             session.beginTransaction();
             session.persist(entity);
             session.getTransaction().commit();
-            session.close();
             return entity;
         }catch(Exception exception){
             System.out.println(exception.getMessage());
             return null;
+        }
+        finally {
+            Session session = getCurrentSession();
+            if(session.getTransaction().isActive()){
+                session.getTransaction().rollback();
+            }
         }
 
     }
@@ -120,11 +123,15 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
             session.beginTransaction();
             T result = session.merge(entity);
             session.getTransaction().commit();
-            session.close();
             return result;
         }catch(Exception exception){
             System.out.println(exception.getMessage());
             return null;
+        } finally {
+            Session session = getCurrentSession();
+            if(session.getTransaction().isActive()){
+                session.getTransaction().rollback();
+            }
         }
     }
 
@@ -133,9 +140,17 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
             if(entity == null){
                 throw new NullPointerException();
             }
+            Session session = getCurrentSession();
+            session.beginTransaction();
             getCurrentSession().remove(entity);
+            session.getTransaction().commit();
         }catch(Exception exception){
             System.out.println(exception.getMessage());
+        } finally {
+            Session session = getCurrentSession();
+            if(session.getTransaction().isActive()){
+                session.getTransaction().rollback();
+            }
         }
     }
 
