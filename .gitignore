@@ -41,6 +41,14 @@ build/
 
 .env
 
-*.xml
 .idea
 /src/main/webapp/WEB-INF
+
+Dockerfile
+docker-compose.yml
+.mvn
+mvnw
+mvnw.cmd
+
+src/main/java/com/urdelivery/urdelivery/util/HibernateUtil/Config.java
+

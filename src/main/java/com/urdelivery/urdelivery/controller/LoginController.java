@@ -1,6 +1,7 @@
 package com.urdelivery.urdelivery.controller;
 
 import com.urdelivery.urdelivery.base.qualifier.LoggedIn;
+import com.urdelivery.urdelivery.dao.DriverDao;
 import com.urdelivery.urdelivery.entity.Driver;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Produces;
@@ -24,8 +25,10 @@ public class LoginController implements Serializable {
     public void login() {
         System.out.println(" user being logged in ...");
 
-        driver = new Driver();
-        
+//        driver = new Driver();
+
+
+
 //        List<Driver> results = userDatabase.createQuery(
 //                        "select u from User u where u.username = :username and u.password = :password")
 //                .setParameter("username", credentials.getUsername())
@@ -38,18 +41,29 @@ public class LoginController implements Serializable {
 //        else {
 //            // perhaps add code here to report a failed login
 //        }
-        System.out.println("user name " + credentialsValidator.getEmail());
-        System.out.println("user name " + credentialsValidator.getPassword());
-        ExternalContext ec = FacesContext.getCurrentInstance()
-                .getExternalContext();
-        try {
-            ec.redirect(ec.getRequestContextPath()
-                    + "/index.xhtml");
-//                    + "/faces/jsf/index.xhtml");
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+//        System.out.println("user name " + credentialsValidator.getEmail());
+//        System.out.println("email " + credentialsValidator.getPassword());
+//        ExternalContext ec = FacesContext.getCurrentInstance()
+//                .getExternalContext();
+//        try {
+//            ec.redirect(ec.getRequestContextPath()
+//                    + "/index.xhtml");
+////                    + "/faces/jsf/index.xhtml");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        DriverDao driverDao = new DriverDao();
+        Driver result = driverDao.getRecordByEmail(credentialsValidator.getEmail());
+
+        if( result != null) {
+            if ( result.getPassword().equals(credentialsValidator.getPassword())) {
+                driver = result;
+            } else {
+                System.out.println(" user logged in failed ...");
+            }
         }
+
     }
 
     public void logout() {
@@ -67,4 +81,3 @@ public class LoginController implements Serializable {
     }
 
 }
-

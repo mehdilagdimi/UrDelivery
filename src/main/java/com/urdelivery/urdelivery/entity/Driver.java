@@ -2,12 +2,14 @@ package com.urdelivery.urdelivery.entity;
 
 
 import com.urdelivery.urdelivery.base.Person;
+import jakarta.inject.Named;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Driver extends Person {
+public class Driver extends Person implements Serializable {
 
     private String currentPlace;
 
