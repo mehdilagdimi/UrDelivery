@@ -31,7 +31,6 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
         }catch(Exception exception){
             System.out.println(exception.getMessage());
         }
-
     }
 
     // API

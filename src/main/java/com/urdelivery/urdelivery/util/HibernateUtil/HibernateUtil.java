@@ -18,14 +18,13 @@ public final class HibernateUtil {
 
     private static SessionFactory sessionFactory;
     private static Session session = null;
+
     private static Transaction transaction = null;
 
-    private static final Configuration configuration ;
-    private static final Properties properties;
+    private static final Configuration configuration = new Configuration() ;
+    private static final Properties properties = new Properties();
 
-    static {
-        configuration = new Configuration();
-        properties = new Properties();
+    public static void configure() {
         properties.setProperty("hibernate.dialect", Config.getDIALECT());
         properties.setProperty("hibernate.connection.driver_class", Config.getDRIVER());
         properties.setProperty("hibernate.connection.url", Config.getURL());
@@ -50,8 +49,20 @@ public final class HibernateUtil {
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
     }
     public static Session getSession() {
-        if(session != null) return session;
+        if(session != null){
+            if(!session.isOpen()){
+                session = getSessionFactory().openSession();
+            }
+            return session;
+        }
         return openSession();
+    }
+
+    public static SessionFactory getSessionFactory(){
+        if(sessionFactory == null){
+            configure();
+        }
+        return sessionFactory;
     }
 
     public static void setSession(Session session) {
@@ -61,11 +72,12 @@ public final class HibernateUtil {
      public static Transaction getTransaction() {
             return getSession().getTransaction();
         }
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
+
 
     public static Session openSession() {
+        if(sessionFactory == null){
+            sessionFactory = getSessionFactory();
+        }
         session = sessionFactory.openSession();
         return session;
     }
