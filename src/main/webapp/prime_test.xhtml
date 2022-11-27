@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+
+   <h:form>
+      <div class="card">
+         <p:dataTable var="delivery" value="#{dtBasicView.deliveries}">
+            <p:column headerText="Departure">
+               <h:outputText value="#{delivery.departure}" />
+            </p:column>
+
+            <p:column headerText="Destination">
+               <h:outputText value="#{delivery.destination}" />
+            </p:column>
+
+
+            <p:column headerText="Departure date">
+               <h:outputText value="#{delivery.dateOfDeparture}" />
+            </p:column>
+
+            <p:column headerText="Arrival Date">
+               <h:outputText value="#{delivery.dateOfArrival}" />
+            </p:column>
+
+            <p:column headerText="Distance in KM">
+               <h:outputText value="#{delivery.distanceInKm}" />
+            </p:column>
+
+            <p:column headerText="Price">
+               <h:outputText value="#{delivery.price}" />
+            </p:column>
+
+            <p:column headerText="Action">
+                  <p:growl id="message" showDetail="true"/>
+                  <h:inputHidden id="deliveryId" value="#{delivery.id}" binding="#{input1}" required="true" requiredMessage="Username is required" />
+                  <p:commandButton value="Confirm" action="#{dtBasicView.confirm(input1.value)}" update="message" styleClass="mr-2" icon="pi pi-check">
+                     <p:confirm type="popup" header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle"/>
+                  </p:commandButton>
+
+                  <p:confirmPopup global="true">
+                     <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+                     <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes" />
+                  </p:confirmPopup>
+            </p:column>
+
+         </p:dataTable>
+      </div>
+   </h:form>
+</h:body>
+
+</html>

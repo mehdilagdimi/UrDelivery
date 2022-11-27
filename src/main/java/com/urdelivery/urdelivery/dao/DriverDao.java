@@ -2,9 +2,11 @@ package com.urdelivery.urdelivery.dao;
 
 import com.urdelivery.urdelivery.base.IUser;
 import com.urdelivery.urdelivery.entity.Driver;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.NoResultException;
 import org.hibernate.Session;
 
+@ApplicationScoped
 public class DriverDao extends AbstractHibernateDao<Driver> implements IUser<Driver> {
     public DriverDao(){
         setClazz(Driver.class);

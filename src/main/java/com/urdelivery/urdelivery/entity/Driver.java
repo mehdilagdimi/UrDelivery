@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Driver extends Person implements Serializable {
+public class Driver extends Person {
 
     private String currentPlace;
 

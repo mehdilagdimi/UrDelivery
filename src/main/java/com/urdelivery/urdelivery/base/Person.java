@@ -2,8 +2,10 @@ package com.urdelivery.urdelivery.base;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @MappedSuperclass
-public class Person {
+public class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -9,7 +9,9 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.servlet.http.HttpSession;
 
+import javax.net.ssl.HandshakeCompletedEvent;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -59,6 +61,9 @@ public class LoginController implements Serializable {
         if( result != null) {
             if ( result.getPassword().equals(credentialsValidator.getPassword())) {
                 driver = result;
+                HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                        .getExternalContext().getSession(true);
+                session.setAttribute("user", driver);
             } else {
                 System.out.println(" user logged in failed ...");
             }
