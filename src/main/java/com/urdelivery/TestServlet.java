@@ -1,6 +1,7 @@
 package com.urdelivery;
 
 import com.urdelivery.urdelivery.util.HibernateUtil.HibernateUtil;
+import com.urdelivery.urdelivery.util.HibernateUtil.Security;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -14,6 +15,9 @@ public class TestServlet extends HttpServlet {
         System.out.println(" testing DB CNX");
         HibernateUtil.configure();
         System.out.println(HibernateUtil.isConnected());
+
+        System.out.println(Security.hashPassword("password"));
+
     }
 
     @Override
