@@ -2,6 +2,7 @@ package com.urdelivery.urdelivery.dao;
 
 import com.urdelivery.urdelivery.base.IUser;
 import com.urdelivery.urdelivery.entity.Driver;
+import com.urdelivery.urdelivery.entity.Manager;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
@@ -13,22 +14,22 @@ import java.io.Serializable;
 
 @ApplicationScoped
 @Named
-public class DriverDao extends AbstractHibernateDao<Driver> implements IUser<Driver>, Serializable {
-    public DriverDao(){
-        setClazz(Driver.class);
+public class ManagerDao extends AbstractHibernateDao<Manager> implements IUser<Manager>, Serializable {
+    public ManagerDao(){
+        setClazz(Manager.class);
     }
 
     @Override
-    public Driver getRecordByEmail(String email) {
+    public Manager getRecordByEmail(String email) {
         Session session = getCurrentSession();
         try{
             session.beginTransaction();
-            Driver driver =  session.createQuery("select a from Driver a where email = :email", Driver.class)
+            Manager manager =  session.createQuery("select a from Manager a where email = :email", Manager.class)
                     .setParameter("email", email)
                     .getSingleResult();
 //            session.close();
 
-            return driver;
+            return manager;
 
         }catch (NoResultException ex){
             System.out.println(ex.getMessage());
@@ -41,7 +42,7 @@ public class DriverDao extends AbstractHibernateDao<Driver> implements IUser<Dri
     }
 
     @Override
-    public Integer login(Driver entity) {
+    public Integer login(Manager entity) {
         return null;
     }
 }

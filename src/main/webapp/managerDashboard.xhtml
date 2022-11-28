@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view>
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:growl id="message"/>
+
+                <p:menubar>
+                    <p:submenu label="File" icon="pi pi-fw pi-file">
+                        <p:submenu label="New" icon="pi pi-fw pi-plus">
+                            <p:menuitem value="Bookmark" icon="pi pi-fw pi-bookmark"/>
+                            <p:menuitem value="Video" icon="pi pi-fw pi-video"/>
+                        </p:submenu>
+                        <p:menuitem value="Delete" icon="pi pi-fw pi-trash"/>
+                        <p:divider/>
+                        <p:menuitem value="Export" icon="pi pi-fw pi-external-link"/>
+                    </p:submenu>
+
+                    <p:submenu label="Edit" icon="pi pi-fw pi-pencil">
+                        <p:menuitem value="Left" icon="pi pi-fw pi-align-left"/>
+                        <p:menuitem value="Right" icon="pi pi-fw pi-align-right"/>
+                        <p:menuitem value="Center" icon="pi pi-fw pi-align-center"/>
+                        <p:menuitem value="Justify" icon="pi pi-fw pi-align-justify"/>
+                    </p:submenu>
+
+                    <p:submenu label="Users" icon="pi pi-fw pi-user">
+                        <p:menuitem value="New" icon="pi pi-fw pi-user-plus"/>
+                        <p:menuitem value="Delete" icon="pi pi-fw pi-user-minus"/>
+                        <p:submenu label="Search" icon="pi pi-fw pi-users">
+                            <p:submenu label="Filter" icon="pi pi-fw pi-filter">
+                                <p:menuitem value="Print" icon="pi pi-fw pi-print"/>
+                            </p:submenu>
+                            <p:menuitem value="List" icon="pi pi-fw pi-bars"/>
+                        </p:submenu>
+                    </p:submenu>
+
+                    <p:submenu label="Events" icon="pi pi-fw pi-calendar">
+                        <p:submenu label="Edit" icon="pi pi-fw pi-pencil">
+                            <p:menuitem value="Save" icon="pi pi-fw pi-calendar-plus"/>
+                            <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>
+                        </p:submenu>
+                        <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                            <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                        </p:submenu>
+                    </p:submenu>
+
+                    <p:divider layout="vertical"/>
+
+                    <p:menuitem value="Quit" icon="pi pi-fw pi-power-off"/>
+
+                    <f:facet name="options">
+                        <div class="ui-input-icon-left mr-2">
+                            <i class="pi pi-fw pi-search"/>
+                            <p:inputText placeholder="Search"/>
+                        </div>
+                        <p:button value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </div>
+
+
+        <!--      data table-->
+        <div class="card crud-demo">
+            <h:form id="form">
+                <p:growl id="messages" showDetail="true"/>
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="New" icon="pi pi-plus" actionListener="#{crudView.openNew}"
+                                         update=":dialogs:manage-product-content"
+                                         oncomplete="PF('manageProductDialog').show()"
+                                         styleClass="ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":dialogs:manage-product-content"/>
+                        </p:commandButton>
+                        <p:commandButton id="delete-products-button" value="#{crudView.deleteButtonMessage}"
+                                         icon="pi pi-trash" actionListener="#{crudView.deleteSelectedDeliveries()}"
+                                         styleClass="ui-button-danger" disabled="#{!crudView.hasSelectedDeliveries()}"
+                                         update="@this">
+                            <p:confirm header="Confirmation" message="Delete the selected deliveries?"
+                                       icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download"/>
+                        <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
+                            <p:dataExporter type="pdf" target="dt-products" fileName="products"/>
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="dt-products" widgetVar="dtProducts" var="delivery" value="#{crudView.deliveries}"
+                             reflow="true" styleClass="products-table" selection="#{crudView.selectedDeliveries}"
+                             rowKey="#{delivery.id}" paginator="true" rows="10" rowSelectMode="add"
+                             paginatorPosition="bottom">
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span style="font-weight: bold">DELIVERIES</span>
+                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
+                        <p:inputText id="globalFilter" onkeyup="PF('dtProducts').filter()" placeholder="Search"/>
+                    </span>
+                        </div>
+                    </f:facet>
+
+                    <p:ajax event="rowSelect" update=":form:delete-products-button"/>
+                    <p:ajax event="rowUnselect" update=":form:delete-products-button"/>
+                    <p:ajax event="rowSelectCheckbox" update=":form:delete-products-button"/>
+                    <p:ajax event="rowUnselectCheckbox" update=":form:delete-products-button"/>
+                    <p:ajax event="toggleSelect" update=":form:delete-products-button"/>
+
+                    <p:column selectionMode="multiple" exportable="false"></p:column>
+
+                    <p:column headerText="ID" sortBy="#{delivery.id}" filterBy="#{delivery.id}">
+                        <h:outputText value="#{delivery.id}"/>
+                    </p:column>
+                    <p:column headerText="Departure" sortBy="#{delivery.departure}" filterBy="#{delivery.departure}">
+                        <h:outputText value="#{delivery.departure}"/>
+                    </p:column>
+                    <p:column headerText="Destination" sortBy="#{delivery.destination}"
+                              filterBy="#{delivery.destination}">
+                        <h:outputText value="#{delivery.destination}"/>
+                    </p:column>
+                    <p:column headerText="Date Of Departure" sortBy="#{delivery.dateOfDeparture}"
+                              filterBy="#{delivery.dateOfDeparture}">
+                        <h:outputText value="#{delivery.dateOfDeparture}"/>
+                    </p:column>
+                    <p:column headerText="Date Of Arrival" sortBy="#{delivery.dateOfArrival}"
+                              filterBy="#{delivery.dateOfArrival}">
+                        <h:outputText value="#{delivery.dateOfArrival}"/>
+                    </p:column>
+                    <!--            <p:column headerText="Image" exportable="false">-->
+                    <!--               <p:graphicImage name="images/product/#{delivery.image}" library="demo" styleClass="product-image" />-->
+                    <!--            </p:column>-->
+                    <p:column headerText="Distance" sortBy="#{delivery.distanceInKm}"
+                              filterBy="#{delivery.distanceInKm}">
+                        <h:outputText value="#{delivery.distanceInKm}"/>
+                    </p:column>
+                    <p:column headerText="Weight" sortBy="#{delivery.weight}" filterBy="#{delivery.weight}">
+                        <h:outputText value="#{delivery.weight}"/>
+                    </p:column>
+                    <p:column headerText="IsAvailable" sortBy="#{delivery.available}"
+                              filterBy="#{delivery.available}">
+                        <h:outputText value="#{delivery.available}"/>
+                    </p:column>
+                    <p:column headerText="Price" sortBy="#{delivery.price}">
+                        <h:outputText value="#{delivery.price}" style="font-weight: 700">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </h:outputText>
+                    </p:column>
+                    <!--            <p:column headerText="Reviews" sortBy="#{delivery.rating}">-->
+                    <!--               <p:rating value="#{delivery.rating}" readonly="true" />-->
+                    <!--            </p:column>-->
+                    <p:column headerText="Created At" sortBy="#{delivery.created_at}"
+                              filterBy="#{delivery.created_at}">
+                        <h:outputText styleClass="product-badge status-#{delivery.created_at}"
+                                      value="#{delivery.created_at}"/>
+                    </p:column>
+                    <p:column exportable="false">
+                        <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content"
+                                         oncomplete="PF('manageProductDialog').show()"
+                                         styleClass="edit-button rounded-button ui-button-success" process="@this">
+                            <f:setPropertyActionListener value="#{delivery}" target="#{crudView.selectedDelivery}"/>
+                            <p:resetInput target=":dialogs:manage-product-content"/>
+                        </p:commandButton>
+                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                         process="@this"
+                                         oncomplete="PF('deleteProductDialog').show()">
+                            <f:setPropertyActionListener value="#{delivery}" target="#{crudView.selectedDelivery}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+
+            <h:form id="dialogs">
+                <p:dialog header="Delivery Details" showEffect="fade" modal="true" widgetVar="manageProductDialog"
+                          responsive="true">
+                    <p:outputPanel id="manage-product-content" class="ui-fluid">
+                        <p:outputPanel rendered="${true}">
+                            <p:graphicImage name="images/product/#{crudView.selectedDelivery}" library="demo"
+                                            styleClass="product-image"
+                                            rendered="#{not empty crudView.selectedDelivery.id}"/>
+                            <div class="field">
+                                <p:outputLabel for="departure">Departure</p:outputLabel>
+                                <p:inputText id="departure" value="#{crudView.selectedDelivery.departure}"
+                                             required="true"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="destination">Destination</p:outputLabel>
+                                <p:inputTextarea id="destination" value="#{crudView.selectedDelivery.destination}"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="dateOfDepart">Date of Departure</p:outputLabel>
+                                <p:inputText id="dateOfDepart" value="#{crudView.selectedDelivery.dateOfDepartureString}"
+                                             required="true"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="weight">Weight</p:outputLabel>
+                                <p:spinner id="weight" min="0" value="#{crudView.selectedDelivery.weight}"/>
+                            </div>
+                            <div class="formgrid grid">
+                                <div class="field col">
+                                    <p:outputLabel for="price">Price</p:outputLabel>
+                                    <p:inputNumber id="price" value="#{crudView.selectedDelivery.price}" symbol=" USD"
+                                                   symbolPosition="s" decimalSeparator="." thousandSeparator=","/>
+                                </div>
+                                <div class="field col">
+                                    <p:outputLabel for="distance">Distance</p:outputLabel>
+                                    <p:spinner id="distance" min="0" value="#{crudView.selectedDelivery.distanceInKm}"/>
+                                </div>
+                            </div>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Save" icon="pi pi-check" actionListener="#{crudView.saveDelivery}"
+                                         update="manage-product-content" process="manage-product-content @this"/>
+                        <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
+                                         class="ui-button-secondary" type="button"/>
+                    </f:facet>
+                </p:dialog>
+
+                <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+                                 message="Delete the product?" header="Confirm" severity="warn">
+                    <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{crudView.deleteDelivery()}"
+                                     process="@this" update=":form:delete-products-button"
+                                     oncomplete="PF('deleteProductDialog').hide()"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                     onclick="PF('deleteProductDialog').hide()"/>
+                </p:confirmDialog>
+
+                <p:confirmDialog global="true" showEffect="fade" width="300">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                     icon="pi pi-times"/>
+                </p:confirmDialog>
+            </h:form>
+        </div>
+    </h:body>
+</f:view>
+</html>

@@ -1,8 +1,11 @@
 package com.urdelivery.urdelivery.controller;
 
+import com.urdelivery.urdelivery.base.Person;
 import com.urdelivery.urdelivery.base.qualifier.LoggedIn;
 import com.urdelivery.urdelivery.dao.DriverDao;
+import com.urdelivery.urdelivery.dao.ManagerDao;
 import com.urdelivery.urdelivery.entity.Driver;
+import com.urdelivery.urdelivery.entity.Manager;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.faces.context.ExternalContext;
@@ -20,7 +23,12 @@ public class LoginController implements Serializable {
     @Inject
     CredentialsValidator credentialsValidator;
 
-    private Driver driver;
+    private Person user;
+//    private Manager manager;
+    @Inject
+    DriverDao driverDao;
+     @Inject
+     ManagerDao managerDao;
 
     public void login() {
         System.out.println(" user being logged in ...");
@@ -43,22 +51,37 @@ public class LoginController implements Serializable {
 //        }
 //        System.out.println("user name " + credentialsValidator.getEmail());
 //        System.out.println("email " + credentialsValidator.getPassword());
-//        ExternalContext ec = FacesContext.getCurrentInstance()
-//                .getExternalContext();
-//        try {
-//            ec.redirect(ec.getRequestContextPath()
-//                    + "/index.xhtml");
-////                    + "/faces/jsf/index.xhtml");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        if(credentialsValidator.getRole() != null){
+            switch(credentialsValidator.getRole()){
+                case "Driver" :
+                    Driver driver = driverDao.getRecordByEmail(credentialsValidator.getEmail());
+                    user = driver;
+                    break;
+                case "Manager":
+                    Manager manager = managerDao.getRecordByEmail(credentialsValidator.getEmail());
+                    user = manager;
+                    break;
+            }
+        }
 
-        DriverDao driverDao = new DriverDao();
-        Driver result = driverDao.getRecordByEmail(credentialsValidator.getEmail());
 
-        if( result != null) {
-            if ( result.getPassword().equals(credentialsValidator.getPassword())) {
-                driver = result;
+        if(user != null) {
+            if (user.getPassword().equals(credentialsValidator.getPassword())) {
+                ExternalContext ec = FacesContext.getCurrentInstance()
+                        .getExternalContext();
+                try {
+                    if("Driver".equals(credentialsValidator.getRole())){
+                        ec.redirect(ec.getRequestContextPath()
+                                + "/managerDashboard.xhtml");
+//                                + "/driverDashboard.xhtml");
+
+                    } else if ("Manager".equals(credentialsValidator.getRole())){
+                        ec.redirect(ec.getRequestContextPath()
+                                + "/managerDashboard.xhtml");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 System.out.println(" user logged in failed ...");
             }
@@ -67,17 +90,17 @@ public class LoginController implements Serializable {
     }
 
     public void logout() {
-        driver = null;
+        user = null;
     }
 
     public boolean isLoggedIn() {
-        return driver != null;
+        return user != null;
     }
 
     @Produces
     @LoggedIn
-    Driver getCurrentUser() {
-        return driver;
+    Person getCurrentUser() {
+        return user;
     }
 
 }

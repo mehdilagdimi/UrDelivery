@@ -21,7 +21,7 @@ import java.util.List;
 public abstract class AbstractHibernateDao<T extends Serializable> {
     private Class<T> clazz;
 
-    public final void setClazz(final Class<T> clazzToSet) {
+    public  void setClazz(final Class<T> clazzToSet) {
 
         try{
             if(clazzToSet == null){

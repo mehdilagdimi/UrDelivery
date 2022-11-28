@@ -11,7 +11,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <!--<script type="text/javascript" src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>-->
 <script type="text/javascript" src="https://cdn.tailwindcss.com"></script>
@@ -44,6 +46,13 @@
                         <h:inputSecret class="w-full bg-gray-50 outline-none py-3 px-2" type="password" id="password"
                                        a:placeholder="Password" value="#{credentialsValidator.password}"/>
                     </div>
+                    <br/><br/>
+                    <h5 class="mt-0">Login as :</h5>
+                    <p:selectOneRadio id="console" value="#{credentialsValidator.role }">
+                        <f:selectItem itemLabel="Admin" itemValue="Admin"/>
+                        <f:selectItem itemLabel="Manager" itemValue="Manager"/>
+                        <f:selectItem itemLabel="Driver" itemValue="Driver"/>
+                    </p:selectOneRadio>
                     <br/><br/>
                     <h:commandButton type="submit" id="submitBtnId"
                                      class="w-full bg-[#EE2B37] cursor-pointer shadow-sm rounded-sm py-3 text-white font-semibold"
